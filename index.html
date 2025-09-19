@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leandro Cesar Pereira - Desenvolvedor Full Stack</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.03)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-info {
+            background: #f8f9fa;
+            padding: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 18px;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            color: #2c3e50;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            margin-left: 20px;
+            border-radius: 2px;
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .profile-text {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            font-size: 1.1em;
+            color: #444;
+            line-height: 1.7;
+        }
+
+        .experience-item, .education-item {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-left: 5px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .experience-item:hover, .education-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .experience-item::before, .education-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 0 0 0 15px;
+        }
+
+        .job-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .company {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .period {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .period::before {
+            content: '📅';
+            margin-right: 8px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .skill-category h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-category h3::before {
+            content: '⚡';
+            margin-right: 10px;
+            font-size: 1.5em;
+        }
+
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px 0;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: #444;
+        }
+
+        .skill-level {
+            display: flex;
+            gap: 3px;
+        }
+
+        .star {
+            width: 16px;
+            height: 16px;
+            background: #ddd;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        .star.filled {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .tech-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .languages {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .language-item {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .flag {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .main-content {
+                padding: 30px 20px;
+            }
+            
+            .skills-grid, .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="profile-img">LP</div>
+            <h1>LEANDRO CESAR PEREIRA</h1>
+            <div class="subtitle">Desenvolvedor Full Stack Web/Mobile</div>
+        </header>
+
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <div>
+                    <strong>Localização</strong><br>
+                    São Gotardo, Minas Gerais
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">📱</div>
+                <div>
+                    <strong>Telefone</strong><br>
+                    (34) 9 9927-2440
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">✉️</div>
+                <div>
+                    <strong>E-mail</strong><br>
+                    leandro.c.pereira@ufv.br
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">💻</div>
+                <div>
+                    <strong>GitHub</strong><br>
+                    github.com/CrisBid
+                </div>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <section class="section">
+                <h2 class="section-title">
+                    <div class="section-icon">👨‍💼</div>
+                    PERFIL PROFISSIONAL
+                </h2>
+                <div class="profile-text">
+                    Desenvolvedor Full Stack com <strong>4+ anos de experiência</strong> sólida em desenvolvimento web e mobile. Formado em Sistemas de Informação pela UFV (2024), com expertise comprovada em arquitetura de software, microsserviços e infraestrutura de servidores. Experiência consolidada no desenvolvimento de soluções escaláveis utilizando tecnologias modernas como React, Node.js, Python e administração avançada de infraestrutura Linux em ambiente empresarial.
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">
+                    <div class="section-icon">🎓</div>
+                    FORMAÇÃO ACADÊMICA
+                </h2>
+                <div class="education-item">
+                    <div class="job-title">Bacharel em Sistemas de Informação</div>
+                    <div class="company">Universidade Federal de Viçosa - Campus Rio Paranaíba</div>
+                    <div class="period">2020 - 2025</div>
+                    <p>Formação sólida em desenvolvimento de software, banco de dados, arquitetura de sistemas e gerenciamento de projetos.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">
+                    <div class="section-icon">💼</div>
+                    EXPERIÊNCIA PROFISSIONAL
+                </h2>
+                
+                <div class="experience-item">
+                    <div class="job-title">Desenvolvedor Full-Stack e Analista de Sistemas</div>
+                    <div class="company">Agropesg</div>
+                    <div class="period">Outubro 2023 - Atual (2+ anos)</div>
+                    <p>Desenvolvimento de sistemas web e mobile para uso interno da empresa. Gerenciamento completo da infraestrutura física das aplicações, manutenção de servidores Linux e implementação de arquitetura de microsserviços.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">React Native</span>
+                        <span class="tech-tag">Node.js/NestJS</span>
+                        <span class="tech-tag">Python/FastAPI</span>
+                        <span class="tech-tag">Linux</span>
+                        <span class="tech-tag">Microsserviços</span>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-title">Desenvolvedor Front-end</div>
+                    <div class="company">Infoalto (Empresa Júnior UFV)</div>
+                    <div class="period">Março 2021 - Maio 2022 (1+ ano)</div>
+                    <p>Desenvolvimento de sistemas web e sites portfólio. Criação de aplicações web diversificadas para clientes utilizando metodologias ágeis e trabalho colaborativo.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">WordPress</span>
+                        <span class="tech-tag">React Native</span>
+                        <span class="tech-tag">Git</span>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-title">Técnico Autônomo em Manutenção de Computadores</div>
+                    <div class="company">Freelancer</div>
+                    <div class="period">Janeiro 2019 - Presente (6+ anos)</div>
+                    <p>Prestação de serviços especializados em manutenção completa para pessoas físicas e pequenas empresas da região, com diagnóstico e reparo de computadores e notebooks.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">
+                    <div class="section-icon">🚀</div>
+                    HABILIDADES TÉCNICAS
+                </h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Front-End</h3>
+                        <div class="skill-item">
+                            <span class="skill-name">React.js/Next.js</span>
+                            <div class="skill-level">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">React Native/Expo</span>
+                            <div class="skill-level">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">HTML/CSS</span>
+                            <div class="skill-level">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">JavaScript/TypeScript</span>
+                            <div class="skill-level">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Flutter</span>
+                            <div class="skill-level">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Back-End</h3>
+                        <div class="skill-item">
+                            <span class="skill-name">Node.js/NestJS</span>
+                            <div class="skill-level">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Python/FastAPI</span>
+                            <div class="skill-level">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Laravel/PHP</span>
+                            <div class="skill-level">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Microsserviços</span>
+                            <div class="skill-level">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Banco de Dados & DevOps</h3>
+                        <div class="skill-item">
+                            <span class="skill-name">MySQL/PostgreSQL</span>
+                            <div class="skill-level">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Linux (Red Hat/SUSE)</span>
+                            <div class="skill-level">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Git/GitHub</span>
+                            <div class="skill-level">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">GraphQL/RabbitMQ</span>
+                            <div class="skill-level">
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star filled"></div>
+                                <div class="star"></div>
+                                <div class="star"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">
+                    <div class="section-icon">📈</div>
+                    PROJETOS DESTACADOS
+                </h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3>Sistema de Gestão Empresarial</h3>
+                        <p>Desenvolvimento completo de sistema web para gestão interna da Agropesg, incluindo módulos de controle de estoque, vendas e relatórios gerenciais.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <h3>Arquitetura de Microsserviços</h3>
+                        <p>Implementação de arquitetura escalável utilizando microsserviços para distribuição de cargas e melhoria da performance dos sistemas internos.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">NestJS</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">RabbitMQ</span>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <h3>Aplicativo Mobile Corporativo</h3>
+                        <p>Desenvolvimento de aplicativo mobile para gestão de campo utilizando React Native, com sincronização offline e GPS tracking.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Expo</span>
+                            <span class="tech-tag">SQLite</span>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <h3>Infraestrutura de Servidores</h3>
+                        <p>Configuração e manutenção de infraestrutura Linux completa, incluindo servidores web, banco de dados e sistemas de backup.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Linux</span>
+                            <span class="tech-tag">Red Hat</span>
+                            <span class="tech-tag">SUSE</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">
+                    <div class="section-icon">🌍</div>
+                    IDIOMAS
+                </h2>
+                <div class="languages">
+                    <div class="language-item">
+                        <span class="flag">🇧🇷</span>
+                        <strong>Português</strong><br>
+                        <span>Nativo</span>
+                    </div>
+                    <div class="language-item">
+                        <span class="flag">🇺🇸</span>
+                        <strong>Inglês</strong><br>
+                        <span>Básico</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">
+                    <div class="section-icon">🎯</div>
+                    COMPETÊNCIAS COMPORTAMENTAIS
+                </h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3>🤝 Trabalho em Equipe</h3>
+                        <p>Experiência sólida em colaboração e liderança de equipes de desenvolvimento, com foco em metodologias ágeis.</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>🔧 Resolução de Problemas</h3>
+                        <p>Capacidade analítica para identificar e resolver problemas complexos em sistemas e infraestrutura.</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>📚 Aprendizado Contínuo</h3>
+                        <p>Constante atualização em novas tecnologias e tendências do mercado de desenvolvimento.</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>⚡ Adaptabilidade</h3>
+                        <p>Flexibilidade para trabalhar com diferentes tecnologias e se adaptar rapidamente a novos ambientes.</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>🎯 Foco em Resultados</h3>
+                        <p>Orientação para entrega de soluções de qualidade dentro dos prazos estabelecidos.</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>💡 Pensamento Estratégico</h3>
+                        <p>Visão abrangente para arquitetura de sistemas e planejamento de infraestrutura.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">
+                    <div class="section-icon">🏆</div>
+                    CERTIFICAÇÕES & QUALIFICAÇÕES
+                </h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3>🚗 CNH Categoria B</h3>
+                        <p>Habilitação para condução de veículos, facilitando mobilidade para atendimento presencial.</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>🔧 Especialista em Hardware</h3>
+                        <p>6+ anos de experiência em diagnóstico, manutenção e reparo de computadores e notebooks.</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>📊 Gestão de Projetos</h3>
+                        <p>Experiência em coordenação de projetos de desenvolvimento e implementação de sistemas.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>📅 Currículo atualizado em Setembro de 2025</p>
+            <p>💼 Desenvolvedor Full Stack com 4+ anos de experiência | 🎓 Formado em Sistemas de Informação - UFV</p>
+        </footer>
+    </div>
+
+    <script>
+        // Animação suave para elementos quando entram na tela
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Aplicar animação aos elementos
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.experience-item, .education-item, .project-card, .skill-category');
+            
+            elements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+
+            // Animação das estrelas de habilidade
+            const skillItems = document.querySelectorAll('.skill-item');
+            skillItems.forEach((item, index) => {
+                setTimeout(() => {
+                    const stars = item.querySelectorAll('.star.filled');
+                    stars.forEach((star, starIndex) => {
+                        setTimeout(() => {
+                            star.style.transform = 'scale(1.2)';
+                            setTimeout(() => {
+                                star.style.transform = 'scale(1)';
+                            }, 200);
+                        }, starIndex * 100);
+                    });
+                }, index * 50);
+            });
+        });
+
+        // Efeito hover nas tech tags
+        document.querySelectorAll('.tech-tag').forEach(tag => {
+            tag.addEventListener('mouseenter', () => {
+                tag.style.transform = 'scale(1.05)';
+                tag.style.boxShadow = '0 5px 15px rgba(102, 126, 234, 0.4)';
+            });
+            
+            tag.addEventListener('mouseleave', () => {
+                tag.style.transform = 'scale(1)';
+                tag.style.boxShadow = 'none';
+            });
+        });
+    </script>
