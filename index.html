@@ -1,821 +1,600 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leandro Cesar Pereira - Desenvolvedor Full Stack</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leandro Cesar Pereira — Full Stack Engineer</title>
+  <style>
+    :root {
+      --blue:    #1a6fc4;
+      --blue2:   #2563eb;
+      --dark:    #0f172a;
+      --mid:     #1e293b;
+      --gray:    #64748b;
+      --light:   #f1f5f9;
+      --white:   #ffffff;
+      --accent:  #06b6d4;
+      --green:   #10b981;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--dark);
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-            position: relative;
-        }
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(15,23,42,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      padding: 0 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-name { font-weight: 700; font-size: .95rem; color: var(--white); letter-spacing: .02em; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: #94a3b8; text-decoration: none; font-size: .88rem; transition: color .2s; }
+    .nav-links a:hover { color: var(--white); }
 
-        .header {
-            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-            color: white;
-            padding: 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 100px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(37,99,235,.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .avatar {
+      width: 100px; height: 100px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue2), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.4rem; font-weight: 800; color: #fff;
+      margin: 0 auto 28px;
+      box-shadow: 0 0 0 4px rgba(37,99,235,.3), 0 20px 60px rgba(0,0,0,.4);
+    }
+    .hero h1 { font-size: clamp(2rem,5vw,3.2rem); font-weight: 800; color: var(--white); letter-spacing: -.02em; }
+    .hero .role {
+      margin-top: 12px;
+      font-size: clamp(1rem,2.5vw,1.25rem);
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .hero .tagline {
+      margin-top: 16px; max-width: 560px; margin-inline: auto;
+      color: #94a3b8; font-size: 1rem;
+    }
+    .hero-links { margin-top: 32px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 22px; border-radius: 8px; font-size: .9rem; font-weight: 600;
+      text-decoration: none; transition: all .2s; cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--blue2); color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: #cbd5e1; border: 1.5px solid #334155; }
+    .btn-outline:hover { border-color: #64748b; color: #fff; transform: translateY(-1px); }
 
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.03)"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>');
-            pointer-events: none;
-        }
+    /* ── STACK STRIP ── */
+    .stack-strip {
+      background: rgba(255,255,255,.03);
+      border-top: 1px solid rgba(255,255,255,.07);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      padding: 16px 32px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; flex-wrap: wrap;
+    }
+    .stack-strip span { color: #64748b; font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; margin-right: 6px; }
+    .stack-tag {
+      background: rgba(37,99,235,.12);
+      border: 1px solid rgba(37,99,235,.25);
+      color: #93c5fd;
+      padding: 4px 12px; border-radius: 20px; font-size: .8rem; font-weight: 500;
+    }
 
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            font-weight: bold;
-            color: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 1;
-        }
+    /* ── SECTIONS ── */
+    section { padding: 80px 24px; }
+    .section-inner { max-width: 900px; margin: 0 auto; }
+    .section-label {
+      display: inline-block;
+      font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+      color: var(--accent); margin-bottom: 10px;
+    }
+    .section-title { font-size: clamp(1.5rem,3vw,2rem); font-weight: 800; color: var(--white); }
+    .divider { width: 48px; height: 3px; background: var(--blue2); border-radius: 2px; margin: 14px 0 36px; }
 
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            font-weight: 700;
-            position: relative;
-            z-index: 1;
-        }
+    /* ── ABOUT ── */
+    .about-box {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px; padding: 32px;
+      font-size: 1.05rem; color: #cbd5e1; line-height: 1.8;
+      border-left: 4px solid var(--blue2);
+    }
+    .about-box strong { color: var(--white); }
 
-        .header .subtitle {
-            font-size: 1.2em;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
-        }
+    /* ── EXPERIENCE ── */
+    .timeline { display: flex; flex-direction: column; gap: 24px; }
+    .exp-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px; padding: 28px 28px 28px 32px;
+      position: relative; transition: border-color .2s, transform .2s;
+    }
+    .exp-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: linear-gradient(180deg, var(--blue2), var(--accent));
+      border-radius: 16px 0 0 16px;
+    }
+    .exp-card:hover { border-color: rgba(37,99,235,.35); transform: translateX(4px); }
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+    .exp-title { font-size: 1.1rem; font-weight: 700; color: var(--white); }
+    .exp-period { font-size: .82rem; color: var(--gray); background: rgba(255,255,255,.06); padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
+    .exp-company { color: var(--accent); font-weight: 600; font-size: .9rem; margin-bottom: 12px; }
+    .exp-desc { color: #94a3b8; font-size: .93rem; margin-bottom: 16px; line-height: 1.7; }
+    .exp-desc ul { padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+    .exp-desc li::marker { color: var(--blue2); }
 
-        .contact-info {
-            background: #f8f9fa;
-            padding: 30px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
+    /* ── SKILLS ── */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 20px; }
+    .skill-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px; padding: 24px;
+      transition: border-color .2s;
+    }
+    .skill-card:hover { border-color: rgba(37,99,235,.3); }
+    .skill-card-title {
+      font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+      color: var(--accent); margin-bottom: 14px;
+    }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+      color: #cbd5e1; padding: 5px 12px; border-radius: 20px; font-size: .82rem; font-weight: 500;
+      transition: all .15s;
+    }
+    .pill:hover { background: rgba(37,99,235,.2); border-color: rgba(37,99,235,.4); color: #fff; }
+    .pill.hot { background: rgba(37,99,235,.15); border-color: rgba(37,99,235,.35); color: #93c5fd; }
 
-        .contact-item {
-            display: flex;
-            align-items: center;
-            background: white;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+    /* ── PROJECTS ── */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px,1fr)); gap: 20px; }
+    .proj-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px; padding: 26px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: all .2s; position: relative; overflow: hidden;
+    }
+    .proj-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--blue2), var(--accent));
+    }
+    .proj-card:hover { border-color: rgba(37,99,235,.35); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,.3); }
+    .proj-name { font-size: 1rem; font-weight: 700; color: var(--white); }
+    .proj-stack { font-size: .78rem; color: var(--accent); font-weight: 600; }
+    .proj-desc { color: #94a3b8; font-size: .88rem; line-height: 1.6; flex: 1; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+    .proj-tag {
+      background: rgba(6,182,212,.1); border: 1px solid rgba(6,182,212,.2);
+      color: #67e8f9; padding: 3px 10px; border-radius: 12px; font-size: .75rem; font-weight: 500;
+    }
 
-        .contact-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
+    /* ── LANGUAGES ── */
+    .lang-row { display: flex; gap: 20px; flex-wrap: wrap; }
+    .lang-card {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px; padding: 24px 32px; text-align: center; flex: 1; min-width: 180px;
+    }
+    .lang-flag { font-size: 2rem; margin-bottom: 8px; }
+    .lang-name { font-weight: 700; color: var(--white); font-size: 1rem; }
+    .lang-level { color: #64748b; font-size: .85rem; margin-top: 4px; }
+    .lang-sub { color: #475569; font-size: .78rem; margin-top: 2px; }
 
-        .contact-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            color: white;
-            font-size: 18px;
-        }
+    /* ── CONTACT ── */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 16px; }
+    .contact-card {
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px; padding: 20px; display: flex; align-items: center; gap: 14px;
+      text-decoration: none; color: inherit; transition: all .2s;
+    }
+    .contact-card:hover { border-color: rgba(37,99,235,.4); transform: translateY(-2px); }
+    .contact-icon { font-size: 1.5rem; }
+    .contact-label { font-size: .75rem; color: #64748b; text-transform: uppercase; letter-spacing: .05em; }
+    .contact-value { font-size: .9rem; color: #e2e8f0; font-weight: 500; }
 
-        .main-content {
-            padding: 40px;
-        }
+    /* ── FOOTER ── */
+    footer {
+      background: rgba(0,0,0,.3); border-top: 1px solid rgba(255,255,255,.07);
+      text-align: center; padding: 28px;
+      color: #475569; font-size: .85rem;
+    }
+    footer strong { color: #64748b; }
 
-        .section {
-            margin-bottom: 40px;
-        }
-
-        .section-title {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-            font-size: 1.8em;
-            color: #2c3e50;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            flex: 1;
-            height: 3px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            margin-left: 20px;
-            border-radius: 2px;
-        }
-
-        .section-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
-            color: white;
-            font-size: 24px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .profile-text {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 25px;
-            border-radius: 15px;
-            border-left: 5px solid #667eea;
-            font-size: 1.1em;
-            color: #444;
-            line-height: 1.7;
-        }
-
-        .experience-item, .education-item {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            border-left: 5px solid transparent;
-            background-clip: padding-box;
-            position: relative;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .experience-item:hover, .education-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-
-        .experience-item::before, .education-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 0 0 0 15px;
-        }
-
-        .job-title {
-            font-size: 1.3em;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 8px;
-        }
-
-        .company {
-            font-weight: 600;
-            color: #667eea;
-            margin-bottom: 5px;
-        }
-
-        .period {
-            color: #7f8c8d;
-            font-style: italic;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .period::before {
-            content: '📅';
-            margin-right: 8px;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .skill-category {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-        }
-
-        .skill-category h3 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 1.2em;
-            display: flex;
-            align-items: center;
-        }
-
-        .skill-category h3::before {
-            content: '⚡';
-            margin-right: 10px;
-            font-size: 1.5em;
-        }
-
-        .skill-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding: 10px 0;
-        }
-
-        .skill-name {
-            font-weight: 600;
-            color: #444;
-        }
-
-        .skill-level {
-            display: flex;
-            gap: 3px;
-        }
-
-        .star {
-            width: 16px;
-            height: 16px;
-            background: #ddd;
-            border-radius: 50%;
-            transition: background 0.3s ease;
-        }
-
-        .star.filled {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .project-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-        }
-
-        .footer {
-            background: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9em;
-        }
-
-        .tech-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .tech-tag {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 500;
-        }
-
-        .languages {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .language-item {
-            text-align: center;
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            flex: 1;
-            max-width: 200px;
-        }
-
-        .flag {
-            font-size: 2em;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-                border-radius: 15px;
-            }
-            
-            .header {
-                padding: 30px 20px;
-            }
-            
-            .main-content {
-                padding: 30px 20px;
-            }
-            
-            .skills-grid, .projects-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .contact-info {
-                grid-template-columns: 1fr;
-                padding: 20px;
-            }
-        }
-    </style>
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0 16px; }
+      .nav-links { display: none; }
+      section { padding: 60px 16px; }
+      .hero { padding: 100px 16px 50px; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="profile-img">LP</div>
-            <h1>LEANDRO CESAR PEREIRA</h1>
-            <div class="subtitle">Desenvolvedor Full Stack Web/Mobile</div>
-        </header>
 
-        <div class="contact-info">
-            <div class="contact-item">
-                <div class="contact-icon">📍</div>
-                <div>
-                    <strong>Localização</strong><br>
-                    São Gotardo, Minas Gerais
-                </div>
-            </div>
-            <div class="contact-item">
-                <div class="contact-icon">📱</div>
-                <div>
-                    <strong>Telefone</strong><br>
-                    (34) 9 9927-2440
-                </div>
-            </div>
-            <div class="contact-item">
-                <div class="contact-icon">✉️</div>
-                <div>
-                    <strong>E-mail</strong><br>
-                    leandro.c.pereira@ufv.br
-                </div>
-            </div>
-            <div class="contact-item">
-                <div class="contact-icon">💻</div>
-                <div>
-                    <strong>GitHub</strong><br>
-                    github.com/CrisBid
-                </div>
-            </div>
+<nav>
+  <span class="nav-name">Leandro Pereira</span>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#experiencia">Experiência</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projetos">Projetos</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="avatar">LP</div>
+    <h1>Leandro Cesar Pereira</h1>
+    <p class="role">Full Stack Engineer &nbsp;·&nbsp; Backend · Frontend · Mobile</p>
+    <p class="tagline">Construindo sistemas distribuídos, APIs de alta disponibilidade e experiências de usuário que escalam.</p>
+    <div class="hero-links">
+      <a class="btn btn-primary" href="https://github.com/CrisBid" target="_blank">⚡ GitHub</a>
+      <a class="btn btn-outline" href="https://www.linkedin.com/in/leandro-pereiraa07" target="_blank">💼 LinkedIn</a>
+      <a class="btn btn-outline" href="#contato">✉ Contato</a>
+    </div>
+  </div>
+</section>
+
+<!-- STACK STRIP -->
+<div class="stack-strip">
+  <span>Stack</span>
+  <span class="stack-tag">Kotlin</span>
+  <span class="stack-tag">Java</span>
+  <span class="stack-tag">Go</span>
+  <span class="stack-tag">Node.js</span>
+  <span class="stack-tag">React</span>
+  <span class="stack-tag">React Native</span>
+  <span class="stack-tag">Apache Kafka</span>
+  <span class="stack-tag">Kubernetes</span>
+  <span class="stack-tag">Docker</span>
+  <span class="stack-tag">PostgreSQL</span>
+  <span class="stack-tag">AWS</span>
+</div>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="section-inner">
+    <span class="section-label">Sobre mim</span>
+    <h2 class="section-title">Quem sou</h2>
+    <div class="divider"></div>
+    <div class="about-box">
+      Full Stack Engineer com experiência em desenvolvimento de <strong>sistemas distribuídos, microsserviços e APIs de alta disponibilidade</strong>. Atuo com Kotlin, Java (Spring Boot), Go, Node.js e NestJS no Backend, React e Next.js no Frontend, e React Native no Mobile.<br><br>
+      Tenho experiência comprovada com <strong>arquitetura orientada a eventos via Apache Kafka</strong>, conteinerização e orquestração com Docker e Kubernetes, e bancos de dados relacionais e NoSQL. Formado em Sistemas de Informação pela Universidade Federal de Viçosa.<br><br>
+      Apaixonado por construir soluções escaláveis que <strong>geram impacto real no usuário final</strong>.
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIÊNCIA -->
+<section id="experiencia" style="background: rgba(255,255,255,.02);">
+  <div class="section-inner">
+    <span class="section-label">Carreira</span>
+    <h2 class="section-title">Experiência Profissional</h2>
+    <div class="divider"></div>
+    <div class="timeline">
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <span class="exp-title">Full Stack Engineer</span>
+          <span class="exp-period">Out 2023 – Atual</span>
         </div>
+        <div class="exp-company">Agropecuária São Gotardo Ltda</div>
+        <div class="exp-desc">
+          <ul>
+            <li>Desenvolvimento de APIs REST de alta disponibilidade com Kotlin, Node.js e NestJS, cobrindo integrações entre múltiplos sistemas e fluxos críticos de negócio</li>
+            <li>Design e implementação de arquitetura de microsserviços com comunicação assíncrona via Apache Kafka, aumentando resiliência e desacoplamento entre serviços</li>
+            <li>Desenvolvimento de interfaces modernas com React e Next.js, com foco em performance, responsividade e acessibilidade</li>
+            <li>Aplicativo mobile cross-platform com React Native integrado às APIs internas</li>
+            <li>Modelagem, indexação e otimização de queries em PostgreSQL, MySQL e SQL Server</li>
+            <li>Conteinerização com Docker e deploy em ambiente Linux — dev, staging e produção</li>
+            <li>Automação de fluxos de dados com Python e Go, eliminando gargalos operacionais</li>
+          </ul>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span class="pill hot">Kotlin</span><span class="pill hot">Go</span><span class="pill hot">Node.js</span>
+          <span class="pill hot">NestJS</span><span class="pill hot">React</span><span class="pill hot">React Native</span>
+          <span class="pill hot">Apache Kafka</span><span class="pill">Docker</span><span class="pill">PostgreSQL</span>
+          <span class="pill">Python</span>
+        </div>
+      </div>
 
-        <main class="main-content">
-            <section class="section">
-                <h2 class="section-title">
-                    <div class="section-icon">👨‍💼</div>
-                    PERFIL PROFISSIONAL
-                </h2>
-                <div class="profile-text">
-                    Desenvolvedor Full Stack com <strong>4+ anos de experiência</strong> sólida em desenvolvimento web e mobile. Formado em Sistemas de Informação pela UFV (2024), com expertise comprovada em arquitetura de software, microsserviços e infraestrutura de servidores. Experiência consolidada no desenvolvimento de soluções escaláveis utilizando tecnologias modernas como React, Node.js, Python e administração avançada de infraestrutura Linux em ambiente empresarial.
-                </div>
-            </section>
+      <div class="exp-card">
+        <div class="exp-header">
+          <span class="exp-title">Desenvolvedor Frontend</span>
+          <span class="exp-period">Mar 2021 – Mai 2022</span>
+        </div>
+        <div class="exp-company">Infoalto – Empresa Júnior UFV</div>
+        <div class="exp-desc">
+          <ul>
+            <li>Desenvolvimento de interfaces web responsivas com React, integradas a APIs RESTful</li>
+            <li>Colaboração em time ágil com versionamento de código via Git e GitHub, seguindo boas práticas de code review e branching</li>
+          </ul>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span class="pill hot">React</span><span class="pill">JavaScript</span><span class="pill">Git</span>
+        </div>
+      </div>
 
-            <section class="section">
-                <h2 class="section-title">
-                    <div class="section-icon">🎓</div>
-                    FORMAÇÃO ACADÊMICA
-                </h2>
-                <div class="education-item">
-                    <div class="job-title">Bacharel em Sistemas de Informação</div>
-                    <div class="company">Universidade Federal de Viçosa - Campus Rio Paranaíba</div>
-                    <div class="period">2020 - 2025</div>
-                    <p>Formação sólida em desenvolvimento de software, banco de dados, arquitetura de sistemas e gerenciamento de projetos.</p>
-                </div>
-            </section>
+    </div>
+  </div>
+</section>
 
-            <section class="section">
-                <h2 class="section-title">
-                    <div class="section-icon">💼</div>
-                    EXPERIÊNCIA PROFISSIONAL
-                </h2>
-                
-                <div class="experience-item">
-                    <div class="job-title">Desenvolvedor Full-Stack e Analista de Sistemas</div>
-                    <div class="company">Agropesg</div>
-                    <div class="period">Outubro 2023 - Atual (2+ anos)</div>
-                    <p>Desenvolvimento de sistemas web e mobile para uso interno da empresa. Gerenciamento completo da infraestrutura física das aplicações, manutenção de servidores Linux e implementação de arquitetura de microsserviços.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">React Native</span>
-                        <span class="tech-tag">Node.js/NestJS</span>
-                        <span class="tech-tag">Python/FastAPI</span>
-                        <span class="tech-tag">Linux</span>
-                        <span class="tech-tag">Microsserviços</span>
-                    </div>
-                </div>
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <span class="section-label">Tecnologias</span>
+    <h2 class="section-title">Skills Técnicas</h2>
+    <div class="divider"></div>
+    <div class="skills-grid">
 
-                <div class="experience-item">
-                    <div class="job-title">Desenvolvedor Front-end</div>
-                    <div class="company">Infoalto (Empresa Júnior UFV)</div>
-                    <div class="period">Março 2021 - Maio 2022 (1+ ano)</div>
-                    <p>Desenvolvimento de sistemas web e sites portfólio. Criação de aplicações web diversificadas para clientes utilizando metodologias ágeis e trabalho colaborativo.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">WordPress</span>
-                        <span class="tech-tag">React Native</span>
-                        <span class="tech-tag">Git</span>
-                    </div>
-                </div>
+      <div class="skill-card">
+        <div class="skill-card-title">Backend</div>
+        <div class="skill-pills">
+          <span class="pill hot">Kotlin</span>
+          <span class="pill hot">Java (Spring Boot)</span>
+          <span class="pill hot">Go</span>
+          <span class="pill hot">Node.js</span>
+          <span class="pill hot">NestJS</span>
+          <span class="pill">Python (FastAPI)</span>
+          <span class="pill">C#/.NET</span>
+        </div>
+      </div>
 
-                <div class="experience-item">
-                    <div class="job-title">Técnico Autônomo em Manutenção de Computadores</div>
-                    <div class="company">Freelancer</div>
-                    <div class="period">Janeiro 2019 - Presente (6+ anos)</div>
-                    <p>Prestação de serviços especializados em manutenção completa para pessoas físicas e pequenas empresas da região, com diagnóstico e reparo de computadores e notebooks.</p>
-                </div>
-            </section>
+      <div class="skill-card">
+        <div class="skill-card-title">Frontend</div>
+        <div class="skill-pills">
+          <span class="pill hot">React</span>
+          <span class="pill hot">Next.js</span>
+          <span class="pill hot">TypeScript</span>
+          <span class="pill">JavaScript</span>
+          <span class="pill">Tailwind CSS</span>
+          <span class="pill">HTML5 / CSS3</span>
+        </div>
+      </div>
 
-            <section class="section">
-                <h2 class="section-title">
-                    <div class="section-icon">🚀</div>
-                    HABILIDADES TÉCNICAS
-                </h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3>Front-End</h3>
-                        <div class="skill-item">
-                            <span class="skill-name">React.js/Next.js</span>
-                            <div class="skill-level">
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">React Native/Expo</span>
-                            <div class="skill-level">
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">HTML/CSS</span>
-                            <div class="skill-level">
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">JavaScript/TypeScript</span>
-                            <div class="skill-level">
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Flutter</span>
-                            <div class="skill-level">
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star"></div>
-                                <div class="star"></div>
-                            </div>
-                        </div>
-                    </div>
+      <div class="skill-card">
+        <div class="skill-card-title">Mobile</div>
+        <div class="skill-pills">
+          <span class="pill hot">React Native</span>
+          <span class="pill">Flutter</span>
+        </div>
+      </div>
 
-                    <div class="skill-category">
-                        <h3>Back-End</h3>
-                        <div class="skill-item">
-                            <span class="skill-name">Node.js/NestJS</span>
-                            <div class="skill-level">
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Python/FastAPI</span>
-                            <div class="skill-level">
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Laravel/PHP</span>
-                            <div class="skill-level">
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Microsserviços</span>
-                            <div class="skill-level">
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                            </div>
-                        </div>
-                    </div>
+      <div class="skill-card">
+        <div class="skill-card-title">Mensageria & APIs</div>
+        <div class="skill-pills">
+          <span class="pill hot">Apache Kafka</span>
+          <span class="pill">RabbitMQ</span>
+          <span class="pill hot">REST</span>
+          <span class="pill">GraphQL</span>
+          <span class="pill">JWT</span>
+          <span class="pill">OAuth2</span>
+        </div>
+      </div>
 
-                    <div class="skill-category">
-                        <h3>Banco de Dados & DevOps</h3>
-                        <div class="skill-item">
-                            <span class="skill-name">MySQL/PostgreSQL</span>
-                            <div class="skill-level">
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Linux (Red Hat/SUSE)</span>
-                            <div class="skill-level">
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Git/GitHub</span>
-                            <div class="skill-level">
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">GraphQL/RabbitMQ</span>
-                            <div class="skill-level">
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star filled"></div>
-                                <div class="star"></div>
-                                <div class="star"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+      <div class="skill-card">
+        <div class="skill-card-title">Banco de Dados</div>
+        <div class="skill-pills">
+          <span class="pill hot">PostgreSQL</span>
+          <span class="pill">MySQL</span>
+          <span class="pill">SQL Server</span>
+          <span class="pill">MongoDB</span>
+          <span class="pill">Redis</span>
+          <span class="pill">SQLite</span>
+        </div>
+      </div>
 
-            <section class="section">
-                <h2 class="section-title">
-                    <div class="section-icon">📈</div>
-                    PROJETOS DESTACADOS
-                </h2>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <h3>Sistema de Gestão Empresarial</h3>
-                        <p>Desenvolvimento completo de sistema web para gestão interna da Agropesg, incluindo módulos de controle de estoque, vendas e relatórios gerenciais.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <h3>Arquitetura de Microsserviços</h3>
-                        <p>Implementação de arquitetura escalável utilizando microsserviços para distribuição de cargas e melhoria da performance dos sistemas internos.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">NestJS</span>
-                            <span class="tech-tag">Docker</span>
-                            <span class="tech-tag">RabbitMQ</span>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <h3>Aplicativo Mobile Corporativo</h3>
-                        <p>Desenvolvimento de aplicativo mobile para gestão de campo utilizando React Native, com sincronização offline e GPS tracking.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">React Native</span>
-                            <span class="tech-tag">Expo</span>
-                            <span class="tech-tag">SQLite</span>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <h3>Infraestrutura de Servidores</h3>
-                        <p>Configuração e manutenção de infraestrutura Linux completa, incluindo servidores web, banco de dados e sistemas de backup.</p>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Linux</span>
-                            <span class="tech-tag">Red Hat</span>
-                            <span class="tech-tag">SUSE</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
+      <div class="skill-card">
+        <div class="skill-card-title">DevOps & Cloud</div>
+        <div class="skill-pills">
+          <span class="pill hot">Docker</span>
+          <span class="pill hot">Kubernetes</span>
+          <span class="pill">Docker Swarm</span>
+          <span class="pill hot">AWS</span>
+          <span class="pill">Nginx</span>
+          <span class="pill">Linux</span>
+          <span class="pill">Git / GitHub</span>
+        </div>
+      </div>
 
-            <section class="section">
-                <h2 class="section-title">
-                    <div class="section-icon">🌍</div>
-                    IDIOMAS
-                </h2>
-                <div class="languages">
-                    <div class="language-item">
-                        <span class="flag">🇧🇷</span>
-                        <strong>Português</strong><br>
-                        <span>Nativo</span>
-                    </div>
-                    <div class="language-item">
-                        <span class="flag">🇺🇸</span>
-                        <strong>Inglês</strong><br>
-                        <span>Básico</span>
-                    </div>
-                </div>
-            </section>
+      <div class="skill-card" style="grid-column: 1 / -1;">
+        <div class="skill-card-title">Arquitetura</div>
+        <div class="skill-pills">
+          <span class="pill hot">Microsserviços</span>
+          <span class="pill hot">Event-Driven</span>
+          <span class="pill hot">Sistemas Distribuídos</span>
+          <span class="pill">Alta Disponibilidade</span>
+          <span class="pill">APIs REST</span>
+          <span class="pill">DDD</span>
+        </div>
+      </div>
 
-            <section class="section">
-                <h2 class="section-title">
-                    <div class="section-icon">🎯</div>
-                    COMPETÊNCIAS COMPORTAMENTAIS
-                </h2>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <h3>🤝 Trabalho em Equipe</h3>
-                        <p>Experiência sólida em colaboração e liderança de equipes de desenvolvimento, com foco em metodologias ágeis.</p>
-                    </div>
-                    <div class="project-card">
-                        <h3>🔧 Resolução de Problemas</h3>
-                        <p>Capacidade analítica para identificar e resolver problemas complexos em sistemas e infraestrutura.</p>
-                    </div>
-                    <div class="project-card">
-                        <h3>📚 Aprendizado Contínuo</h3>
-                        <p>Constante atualização em novas tecnologias e tendências do mercado de desenvolvimento.</p>
-                    </div>
-                    <div class="project-card">
-                        <h3>⚡ Adaptabilidade</h3>
-                        <p>Flexibilidade para trabalhar com diferentes tecnologias e se adaptar rapidamente a novos ambientes.</p>
-                    </div>
-                    <div class="project-card">
-                        <h3>🎯 Foco em Resultados</h3>
-                        <p>Orientação para entrega de soluções de qualidade dentro dos prazos estabelecidos.</p>
-                    </div>
-                    <div class="project-card">
-                        <h3>💡 Pensamento Estratégico</h3>
-                        <p>Visão abrangente para arquitetura de sistemas e planejamento de infraestrutura.</p>
-                    </div>
-                </div>
-            </section>
+    </div>
+  </div>
+</section>
 
-            <section class="section">
-                <h2 class="section-title">
-                    <div class="section-icon">🏆</div>
-                    CERTIFICAÇÕES & QUALIFICAÇÕES
-                </h2>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <h3>🚗 CNH Categoria B</h3>
-                        <p>Habilitação para condução de veículos, facilitando mobilidade para atendimento presencial.</p>
-                    </div>
-                    <div class="project-card">
-                        <h3>🔧 Especialista em Hardware</h3>
-                        <p>6+ anos de experiência em diagnóstico, manutenção e reparo de computadores e notebooks.</p>
-                    </div>
-                    <div class="project-card">
-                        <h3>📊 Gestão de Projetos</h3>
-                        <p>Experiência em coordenação de projetos de desenvolvimento e implementação de sistemas.</p>
-                    </div>
-                </div>
-            </section>
-        </main>
+<!-- PROJETOS -->
+<section id="projetos" style="background: rgba(255,255,255,.02);">
+  <div class="section-inner">
+    <span class="section-label">Portfolio</span>
+    <h2 class="section-title">Projetos Relevantes</h2>
+    <div class="divider"></div>
+    <div class="projects-grid">
 
-        <footer class="footer">
-            <p>📅 Currículo atualizado em Setembro de 2025</p>
-            <p>💼 Desenvolvedor Full Stack com 4+ anos de experiência | 🎓 Formado em Sistemas de Informação - UFV</p>
-        </footer>
+      <div class="proj-card">
+        <div class="proj-name">Core Banking System</div>
+        <div class="proj-stack">Microsserviços &amp; Event-Driven</div>
+        <p class="proj-desc">Sistema bancário distribuído com microsserviços independentes por domínio. Comunicação assíncrona via Apache Kafka, deploy containerizado com Docker Compose e arquitetura orientada a alta disponibilidade e tolerância a falhas.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Kotlin</span>
+          <span class="proj-tag">Python (FastAPI)</span>
+          <span class="proj-tag">Apache Kafka</span>
+          <span class="proj-tag">Docker</span>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-name">API Gateway &amp; Serviços de Alta Performance</div>
+        <div class="proj-stack">Go · REST · Docker</div>
+        <p class="proj-desc">Serviços backend em Go para roteamento e processamento de requisições com foco em throughput elevado e baixa latência. Integrados via REST e mensageria assíncrona, conteinerizados com Docker.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Go</span>
+          <span class="proj-tag">REST</span>
+          <span class="proj-tag">Docker</span>
+          <span class="proj-tag">PostgreSQL</span>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-name">Plataforma Amigos de Minas</div>
+        <div class="proj-stack">Full Stack &amp; Mobile</div>
+        <p class="proj-desc">Sistema web e mobile completo: frontend em Next.js, backend em NestJS e aplicativo com React Native. APIs REST com autenticação JWT, arquitetura modular por domínio e persistência com PostgreSQL.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Next.js</span>
+          <span class="proj-tag">NestJS</span>
+          <span class="proj-tag">React Native</span>
+          <span class="proj-tag">PostgreSQL</span>
+        </div>
+      </div>
+
     </div>
 
-    <script>
-        // Animação suave para elementos quando entram na tela
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+    <div style="text-align:center; margin-top:36px;">
+      <a class="btn btn-outline" href="https://github.com/CrisBid" target="_blank">Ver mais no GitHub →</a>
+    </div>
+  </div>
+</section>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+<!-- FORMAÇÃO -->
+<section id="formacao">
+  <div class="section-inner">
+    <span class="section-label">Educação</span>
+    <h2 class="section-title">Formação Acadêmica</h2>
+    <div class="divider"></div>
+    <div class="exp-card" style="max-width: 600px;">
+      <div class="exp-header">
+        <span class="exp-title">Bacharel em Sistemas de Informação</span>
+        <span class="exp-period">2020 – 2025</span>
+      </div>
+      <div class="exp-company">Universidade Federal de Viçosa – Campus Rio Paranaíba</div>
+    </div>
 
-        // Aplicar animação aos elementos
-        document.addEventListener('DOMContentLoaded', () => {
-            const elements = document.querySelectorAll('.experience-item, .education-item, .project-card, .skill-category');
-            
-            elements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
-            });
+    <div style="margin-top: 40px;">
+      <span class="section-label">Idiomas</span>
+      <div class="lang-row" style="margin-top:16px;">
+        <div class="lang-card">
+          <div class="lang-flag">🇧🇷</div>
+          <div class="lang-name">Português</div>
+          <div class="lang-level">Nativo</div>
+        </div>
+        <div class="lang-card">
+          <div class="lang-flag">🇺🇸</div>
+          <div class="lang-name">Inglês</div>
+          <div class="lang-level">Intermediário</div>
+          <div class="lang-sub">Leitura e escrita · Básico conversação</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            // Animação das estrelas de habilidade
-            const skillItems = document.querySelectorAll('.skill-item');
-            skillItems.forEach((item, index) => {
-                setTimeout(() => {
-                    const stars = item.querySelectorAll('.star.filled');
-                    stars.forEach((star, starIndex) => {
-                        setTimeout(() => {
-                            star.style.transform = 'scale(1.2)';
-                            setTimeout(() => {
-                                star.style.transform = 'scale(1)';
-                            }, 200);
-                        }, starIndex * 100);
-                    });
-                }, index * 50);
-            });
-        });
+<!-- CONTATO -->
+<section id="contato" style="background: rgba(255,255,255,.02);">
+  <div class="section-inner">
+    <span class="section-label">Vamos conversar</span>
+    <h2 class="section-title">Contato</h2>
+    <div class="divider"></div>
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:leandro_c_pereira@hotmail.com">
+        <span class="contact-icon">✉️</span>
+        <div>
+          <div class="contact-label">E-mail</div>
+          <div class="contact-value">leandro_c_pereira@hotmail.com</div>
+        </div>
+      </a>
+      <a class="contact-card" href="https://github.com/CrisBid" target="_blank">
+        <span class="contact-icon">⚡</span>
+        <div>
+          <div class="contact-label">GitHub</div>
+          <div class="contact-value">github.com/CrisBid</div>
+        </div>
+      </a>
+      <a class="contact-card" href="https://www.linkedin.com/in/leandro-pereiraa07" target="_blank">
+        <span class="contact-icon">💼</span>
+        <div>
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-value">leandro-pereiraa07</div>
+        </div>
+      </a>
+      <div class="contact-card">
+        <span class="contact-icon">📍</span>
+        <div>
+          <div class="contact-label">Localização</div>
+          <div class="contact-value">Belo Horizonte, MG</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // Efeito hover nas tech tags
-        document.querySelectorAll('.tech-tag').forEach(tag => {
-            tag.addEventListener('mouseenter', () => {
-                tag.style.transform = 'scale(1.05)';
-                tag.style.boxShadow = '0 5px 15px rgba(102, 126, 234, 0.4)';
-            });
-            
-            tag.addEventListener('mouseleave', () => {
-                tag.style.transform = 'scale(1)';
-                tag.style.boxShadow = 'none';
-            });
-        });
-    </script>
+<footer>
+  <p><strong>Leandro Cesar Pereira</strong> · Full Stack Engineer · Belo Horizonte, MG</p>
+  <p style="margin-top:6px;">Atualizado em junho de 2026</p>
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.exp-card, .skill-card, .proj-card, .lang-card, .contact-card, .about-box').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    io.observe(el);
+  });
+
+  // Active nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+    links.forEach(l => {
+      l.style.color = l.getAttribute('href') === '#' + cur ? '#fff' : '';
+    });
+  }, { passive: true });
+</script>
+</body>
+</html>
